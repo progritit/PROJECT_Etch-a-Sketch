@@ -1,0 +1,61 @@
+/* 
+  Makes width and height include padding and borders.
+  This prevents borders from accidentally making elements larger than expected.
+*/
+* {
+    box-sizing: border-box;
+}
+
+/* Basic page styling */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+h1 {
+    margin-bottom: 10px;
+}
+
+/* Styles the grid resize button */
+button {
+    padding: 10px 16px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* 
+  The main grid area.
+  Flexbox is used here to arrange the square divs into rows.
+*/
+#container {
+    width: 960px;
+    height: 960px;
+    margin: 0 auto;
+
+    display: flex;
+    flex-wrap: wrap;
+
+    background-color: white;
+    border: 2px solid black;
+}
+
+/* 
+  Each square in the grid.
+  Width and height are set dynamically in JavaScript.
+*/
+.grid-square {
+    border: 1px solid #ddd;
+    background-color: white;
+}
+
+/* 
+  This class is added when the mouse passes over a square.
+  It creates the drawing effect.
+*/
+.colored {
+    background-color: black;
+}
