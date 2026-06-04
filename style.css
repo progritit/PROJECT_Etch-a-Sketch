@@ -13,17 +13,18 @@ body {
 
     font-family: Arial, Helvetica, sans-serif;
     color: #13211a;
+
     background-image: url("images/background.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 
-    /*
-    Centers the whole application.
-  */
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    padding: 32px 0 18px;
 }
 
 /* 
@@ -367,4 +368,85 @@ input[type="range"] {
         width: min(84vw, 560px);
         height: min(84vw, 560px);
     }
+}
+
+/* 
+  Site footer.
+  The footer uses a glowing pill style inspired by the mockup,
+  but with colors that match the solarpunk interface.
+*/
+.site-footer {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+
+    margin-top: 22px;
+}
+
+/* 
+  Footer content container.
+  This creates the rounded glowing shape.
+*/
+.footer-pill {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    padding: 10px 18px;
+
+    color: #fff8d8;
+    background: rgba(19, 33, 26, 0.82);
+
+    border: 1px solid rgba(233, 196, 106, 0.75);
+    border-radius: 999px;
+
+    box-shadow:
+        0 0 16px rgba(233, 196, 106, 0.35),
+        inset 0 0 12px rgba(46, 125, 79, 0.45);
+
+    backdrop-filter: blur(6px);
+}
+
+.footer-pill p {
+    margin: 0;
+
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+}
+
+/* GitHub link circle */
+.github-link {
+    width: 28px;
+    height: 28px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: #13211a;
+    background-color: #e9c46a;
+
+    border-radius: 50%;
+
+    transition:
+        transform 0.15s ease,
+        background-color 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+.github-link:hover {
+    transform: translateY(-2px);
+
+    background-color: #f2a154;
+
+    box-shadow: 0 0 12px rgba(242, 161, 84, 0.8);
+}
+
+.github-icon {
+    width: 18px;
+    height: 18px;
+
+    fill: currentColor;
 }

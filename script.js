@@ -27,6 +27,8 @@ const activeColorText = document.querySelector("#activeColorText");
 
 const gridLinesToggle = document.querySelector("#gridLinesToggle");
 
+const currentYear = document.querySelector("#currentYear");
+
 
 /* 
   ============================
@@ -401,3 +403,6 @@ document.addEventListener("keydown", function (event) {
 createGrid(currentGridSize);
 setTool("draw");
 setColor(currentColor, currentColorName);
+
+// Automatically displays the current year in the footer
+currentYear.textContent = new Date().getFullYear();
