@@ -1,4 +1,5 @@
 # Etch-a-Sketch Project
+<img width="1919" height="933" alt="Screenshot_2026-06-04_23-23-45" src="https://github.com/user-attachments/assets/bc009ae0-79a9-40d1-bd25-66f42f24e0ba" />
 
 # ETCH-A-SKETCH STUDIO
 
