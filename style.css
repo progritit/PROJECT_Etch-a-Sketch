@@ -14,10 +14,44 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     color: #13211a;
 
-    background-image: url("images/background.png");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    /*
+        The static image was moved to media/background.png.
+        Keep this commented as a fallback reference.
+    */
+    /* background-image: url("media/background.png"); */
+    /* background-size: cover; */
+    /* background-position: center; */
+    /* background-repeat: no-repeat; */
+
+    /*
+      Full-page animated video background.
+      The video sits behind the app interface.
+    */
+        .background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+    
+            width: 100vw;
+            height: 100vh;
+    
+            object-fit: cover;
+    
+            z-index: -2;
+        }
+    
+        /*
+      Soft overlay above the video.
+      This improves readability by calming the animated background.
+    */
+        .background-overlay {
+            position: fixed;
+            inset: 0;
+    
+            background: rgba(19, 33, 26, 0.18);
+    
+            z-index: -1;
+        }
 
     display: flex;
     justify-content: center;
@@ -40,6 +74,9 @@ body {
   Flexbox places the control panel and canvas side by side.
 */
 .app {
+    position: relative;
+    z-index: 1;
+
     width: min(92vw, 1200px);
     min-height: 720px;
 
@@ -387,6 +424,7 @@ input[type="range"] {
     position: absolute;
     left: 50%;
     bottom: 22px;
+    z-index: 1;
 
     transform: translateX(-50%);
 
