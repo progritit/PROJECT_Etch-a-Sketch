@@ -362,17 +362,27 @@ input[type="range"] {
   JavaScript will insert the pixel squares here.
 */
 .grid-container {
+    --grid-size: 16;
+
     width: min(70vh, 560px);
-    height: min(70vh, 560px);
+    aspect-ratio: 1 / 1;
 
     display: flex;
     flex-wrap: wrap;
+    align-content: flex-start;
 
     background-color: #fffef7;
-    border: 2px solid #b8b7a2;
-    border-radius: 14px;
+
+    border: 3px solid rgba(46, 125, 79, 0.85);
+    border-radius: 16px;
 
     overflow: hidden;
+
+    box-shadow:
+        0 0 0 3px rgba(255, 248, 216, 0.85),
+        0 0 0 5px rgba(233, 196, 106, 0.55),
+        0 14px 28px rgba(19, 33, 26, 0.22),
+        inset 0 0 16px rgba(46, 125, 79, 0.12);
 }
 
 /* 
@@ -380,8 +390,12 @@ input[type="range"] {
   JavaScript controls their width and height.
 */
 .grid-square {
+    flex: 0 0 calc(100% / var(--grid-size));
+    aspect-ratio: 1 / 1;
+
     background-color: white;
     border: 1px solid #d4d1bd;
+    min-width: 0;
 }
 
 /* Used when grid lines are turned off */

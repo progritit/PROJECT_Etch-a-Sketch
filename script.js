@@ -78,15 +78,11 @@ function createGrid(size) {
   gridSizeText.textContent = `${size}x${size}`;
 
   /*
-    clientWidth gives the usable inner width of the grid container.
-    This helps the squares fit inside the container correctly.
+    Store the grid size as a CSS variable.
+    CSS will use this number to calculate each square's size.
   */
-  const containerWidth = gridContainer.clientWidth;
+  gridContainer.style.setProperty("--grid-size", size);
 
-  // Calculate each square's size so all squares fit the same total space
-  const squareSize = containerWidth / size;
-
-  // A 16x16 grid needs 256 squares, a 64x64 grid needs 4096 squares, etc.
   const totalSquares = size * size;
 
   for (let i = 0; i < totalSquares; i++) {
@@ -94,28 +90,13 @@ function createGrid(size) {
 
     square.classList.add("grid-square");
 
-    square.style.width = `${squareSize}px`;
-    square.style.height = `${squareSize}px`;
-
-    /*
-      mousedown lets the user color a square immediately
-      when they first press the mouse button.
-    */
     square.addEventListener("mousedown", function (event) {
-      /*
-        event.button === 0 means left mouse button.
-        This prevents right-click or middle-click from drawing.
-      */
       if (event.button === 0) {
         isDrawing = true;
         colorSquare(square);
       }
     });
 
-    /*
-      mouseenter allows click-and-drag drawing.
-      The square only gets colored if the mouse button is being held.
-    */
     square.addEventListener("mouseenter", function () {
       if (isDrawing) {
         colorSquare(square);
