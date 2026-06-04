@@ -1,6 +1,6 @@
-# TOP Etch-a-Sketch Project
+# Etch-a-Sketch Project
 
-# Solar Sketch Studio
+# ETCH-A-SKETCH STUDIO
 
 A solarpunk-themed Etch-a-Sketch / pixel drawing application built with HTML, CSS, and JavaScript.
 
@@ -92,7 +92,7 @@ The application showcases:
 ## Project Structure
 
 ```
-TOP_PROJECT_Etch_A_Sketch/
+PROJECT_Etch_A_Sketch/
 │
 ├── index.html
 ├── style.css
