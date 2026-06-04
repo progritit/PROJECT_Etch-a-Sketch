@@ -4,29 +4,139 @@
 <head>
     <meta charset="UTF-8" />
 
-    <!-- Makes the page scale properly on different screen sizes -->
+    <!-- Makes the layout work better on different screen sizes -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Etch-a-Sketch Grid</title>
+    <title>Solar Sketch Studio</title>
 
-    <!-- Connects this HTML file to the CSS stylesheet -->
+    <!-- Connects the CSS file -->
     <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 
-    <h1>Etch-a-Sketch</h1>
+    <!-- Main app wrapper -->
+    <main class="app">
 
-    <!-- Button used to ask the user for a new grid size -->
-    <button id="resizeButton">Change Grid Size</button>
+        <!-- Left panel: controls -->
+        <section class="control-panel">
 
-    <!-- JavaScript will create and insert the grid squares inside this container -->
-    <div id="container"></div>
+            <header class="app-header">
+                <h1><span>Solar</span> Sketch Studio</h1>
+                <p>Eco-Digital Drawing</p>
+            </header>
 
-    <!-- 
-    Connects this HTML file to the JavaScript file.
-    Placing it at the end of the body ensures the HTML loads before the script runs.
-  -->
+            <!-- Shows the currently selected tool and color -->
+            <section class="status-area">
+                <div class="status-item">
+                    <h2>Active Tool</h2>
+                    <div id="activeToolIcon" class="tool-icon">🖌️</div>
+                    <p id="activeToolText">Draw</p>
+                </div>
+
+                <div class="status-item">
+                    <h2>Active Color</h2>
+                    <div id="activeColorPreview" class="active-color-preview"></div>
+                    <p id="activeColorText">Bio-Leaf</p>
+                </div>
+            </section>
+
+            <!-- Grid size controls -->
+            <section class="controls-section">
+                <h2>Canvas</h2>
+
+                <div class="slider-row">
+                    <label for="gridSizeSlider">Grid Size</label>
+                    <span id="gridSizeText">16x16</span>
+                </div>
+
+                <input id="gridSizeSlider" type="range" min="1" max="100" value="16" />
+
+                <button id="changeSizeButton" class="button secondary-button">
+                    Change Size
+                </button>
+            </section>
+
+            <!-- Drawing tools -->
+            <section class="controls-section">
+                <h2>Tools</h2>
+
+                <div class="button-row">
+                    <button id="drawButton" class="button tool-button active-button">
+                        🖌️ Draw
+                    </button>
+
+                    <button id="eraserButton" class="button tool-button">
+                        ◼ Eraser
+                    </button>
+
+                    <button id="clearButton" class="button tool-button">
+                        ↺ Clear
+                    </button>
+                </div>
+
+                <div class="toggle-row">
+                    <span>Show Grid Lines</span>
+
+                    <label class="switch">
+                        <input id="gridLinesToggle" type="checkbox" checked />
+                        <span class="switch-slider"></span>
+                    </label>
+                </div>
+            </section>
+
+            <!-- Color palette -->
+            <section class="controls-section">
+                <h2>Palette</h2>
+
+                <div class="palette">
+
+                    <button class="color-button" data-color="#2E7D4F" data-name="Bio-Leaf"
+                        style="background-color: #2E7D4F;" aria-label="Bio-Leaf color"></button>
+
+                    <button class="color-button" data-color="#F2A154" data-name="Solar Flare"
+                        style="background-color: #F2A154;" aria-label="Solar Flare color"></button>
+
+                    <button class="color-button" data-color="#8E583E" data-name="Earth Loam"
+                        style="background-color: #8E583E;" aria-label="Earth Loam color"></button>
+
+                    <button class="color-button" data-color="#70A1B7" data-name="Clean Sky"
+                        style="background-color: #70A1B7;" aria-label="Clean Sky color"></button>
+
+                    <button class="color-button" data-color="#E9C46A" data-name="Biolume"
+                        style="background-color: #E9C46A;" aria-label="Biolume color"></button>
+
+                </div>
+
+                <div class="custom-color-row">
+                    <label for="customColorPicker">Custom Color</label>
+
+                    <input id="customColorPicker" type="color" value="#2E7D4F" />
+                </div>
+
+                <button id="rainbowButton" class="button rainbow-button">
+                    Rainbow Mode
+                </button>
+            </section>
+
+            <!-- Keyboard shortcut hints -->
+            <footer class="shortcut-hints">
+                <p>[D] Draw</p>
+                <p>[E] Erase</p>
+                <p>[R] Rainbow</p>
+                <p>[Ctrl+C] Clear</p>
+            </footer>
+
+        </section>
+
+        <!-- Right panel: drawing canvas -->
+        <section class="canvas-panel">
+            <div id="gridContainer" class="grid-container"></div>
+        </section>
+
+    </main>
+
+    <!-- Connects the JavaScript file -->
     <script src="script.js"></script>
 </body>
 

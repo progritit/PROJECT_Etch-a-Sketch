@@ -1,75 +1,403 @@
-// Select the grid container from the HTML
-const container = document.querySelector("#container");
+/* 
+  ============================
+  ELEMENT SELECTIONS
+  ============================
 
-// Select the button that lets the user change the grid size
-const resizeButton = document.querySelector("#resizeButton");
+  These constants connect JavaScript to elements from the HTML.
+*/
+
+const gridContainer = document.querySelector("#gridContainer");
+
+const gridSizeSlider = document.querySelector("#gridSizeSlider");
+const gridSizeText = document.querySelector("#gridSizeText");
+const changeSizeButton = document.querySelector("#changeSizeButton");
+
+const drawButton = document.querySelector("#drawButton");
+const eraserButton = document.querySelector("#eraserButton");
+const clearButton = document.querySelector("#clearButton");
+const rainbowButton = document.querySelector("#rainbowButton");
+
+const colorButtons = document.querySelectorAll(".color-button");
+const customColorPicker = document.querySelector("#customColorPicker");
+
+const activeToolIcon = document.querySelector("#activeToolIcon");
+const activeToolText = document.querySelector("#activeToolText");
+const activeColorPreview = document.querySelector("#activeColorPreview");
+const activeColorText = document.querySelector("#activeColorText");
+
+const gridLinesToggle = document.querySelector("#gridLinesToggle");
+
+
+/* 
+  ============================
+  APPLICATION STATE
+  ============================
+
+  These variables remember the current status of the app.
+*/
+
+let currentGridSize = 16;
+let currentColor = "#2E7D4F";
+let currentColorName = "Bio-Leaf";
 
 /*
- * Creates a new square grid inside the container.
- *
- * @param {number} squaresPerSide - The number of squares for each row and column.
- * Example: 16 creates a 16x16 grid.
- */
-function createGrid(squaresPerSide) {
-  // Remove any existing squares before creating a new grid
-  container.innerHTML = "";
+  currentTool can be:
+  - "draw"
+  - "erase"
+  - "rainbow"
+*/
+let currentTool = "draw";
+
+/*
+  This controls click-and-drag drawing.
+
+  false = user is not holding the mouse button
+  true = user is holding the mouse button
+*/
+let isDrawing = false;
+
+
+/* 
+  ============================
+  GRID CREATION
+  ============================
+
+  This function creates a new grid based on the selected size.
+*/
+
+function createGrid(size) {
+  // Remove all old squares before creating a new grid
+  gridContainer.innerHTML = "";
+
+  // Update the app's current grid size
+  currentGridSize = size;
+
+  // Update the visible grid size text
+  gridSizeText.textContent = `${size}x${size}`;
 
   /*
-    Use the container's inner width so the grid fits inside the border.
-    clientWidth excludes the outer border, which helps prevent overflow.
+    clientWidth gives the usable inner width of the grid container.
+    This helps the squares fit inside the container correctly.
   */
-  const containerWidth = container.clientWidth;
+  const containerWidth = gridContainer.clientWidth;
 
-  // Calculate the size of each square so the grid always fits the same space
-  const squareSize = containerWidth / squaresPerSide;
+  // Calculate each square's size so all squares fit the same total space
+  const squareSize = containerWidth / size;
 
-  // Calculate the total number of squares needed
-  const totalSquares = squaresPerSide * squaresPerSide;
+  // A 16x16 grid needs 256 squares, a 64x64 grid needs 4096 squares, etc.
+  const totalSquares = size * size;
 
-  // Create each square and add it to the container
   for (let i = 0; i < totalSquares; i++) {
     const square = document.createElement("div");
 
-    // Add the CSS class that gives the square its default styling
     square.classList.add("grid-square");
 
-    // Set the square's size dynamically based on the requested grid size
     square.style.width = `${squareSize}px`;
     square.style.height = `${squareSize}px`;
 
     /*
-      Add the drawing behavior.
-      When the mouse enters a square, the square receives the "colored" class.
+      mousedown lets the user color a square immediately
+      when they first press the mouse button.
     */
-    square.addEventListener("mouseenter", function () {
-      square.classList.add("colored");
+    square.addEventListener("mousedown", function (event) {
+      /*
+        event.button === 0 means left mouse button.
+        This prevents right-click or middle-click from drawing.
+      */
+      if (event.button === 0) {
+        isDrawing = true;
+        colorSquare(square);
+      }
     });
 
-    // Place the square inside the grid container
-    container.appendChild(square);
+    /*
+      mouseenter allows click-and-drag drawing.
+      The square only gets colored if the mouse button is being held.
+    */
+    square.addEventListener("mouseenter", function () {
+      if (isDrawing) {
+        colorSquare(square);
+      }
+    });
+
+    gridContainer.appendChild(square);
   }
 }
 
-/*
-  When the button is clicked, ask the user for a new grid size.
-  Then rebuild the grid using that size.
+
+/* 
+  ============================
+  DRAWING LOGIC
+  ============================
+
+  This function decides what happens when a square is colored.
 */
-resizeButton.addEventListener("click", function () {
-  const userInput = prompt("Enter the number of squares per side. Maximum is 100.");
 
-  // Convert the prompt result from text into a number
-  const newSize = Number(userInput);
+function colorSquare(square) {
+  if (currentTool === "draw") {
+    square.style.backgroundColor = currentColor;
+  }
 
-  /*
-    Only allow grid sizes from 1 to 100.
-    This prevents very large grids that could slow down or crash the browser.
-  */
-  if (newSize > 0 && newSize <= 100) {
-    createGrid(newSize);
+  if (currentTool === "erase") {
+    square.style.backgroundColor = "white";
+  }
+
+  if (currentTool === "rainbow") {
+    square.style.backgroundColor = getRandomRainbowColor();
+  }
+}
+
+
+/* 
+  Returns a random rainbow-like color.
+  This keeps rainbow mode bright and playful.
+*/
+
+function getRandomRainbowColor() {
+  const rainbowColors = [
+    "#FF5F57",
+    "#F2A154",
+    "#E9C46A",
+    "#65B96F",
+    "#70A1B7",
+    "#9B5DE5"
+  ];
+
+  const randomIndex = Math.floor(Math.random() * rainbowColors.length);
+
+  return rainbowColors[randomIndex];
+}
+
+
+/* 
+  ============================
+  TOOL SELECTION
+  ============================
+
+  These functions update the active drawing mode.
+*/
+
+function setTool(tool) {
+  currentTool = tool;
+
+  // Remove active styling from all tool buttons first
+  drawButton.classList.remove("active-button");
+  eraserButton.classList.remove("active-button");
+  rainbowButton.classList.remove("active-button");
+
+  if (tool === "draw") {
+    drawButton.classList.add("active-button");
+    activeToolIcon.textContent = "🖌️";
+    activeToolText.textContent = "Draw";
+  }
+
+  if (tool === "erase") {
+    eraserButton.classList.add("active-button");
+    activeToolIcon.textContent = "◼";
+    activeToolText.textContent = "Eraser";
+  }
+
+  if (tool === "rainbow") {
+    rainbowButton.classList.add("active-button");
+    activeToolIcon.textContent = "🌈";
+    activeToolText.textContent = "Rainbow";
+  }
+}
+
+
+/* 
+  ============================
+  COLOR SELECTION
+  ============================
+
+  These functions update the current drawing color.
+*/
+
+function setColor(color, colorName) {
+  currentColor = color;
+  currentColorName = colorName;
+
+  // When the user selects a color, return to draw mode automatically
+  setTool("draw");
+
+  // Update the active color display
+  activeColorPreview.style.backgroundColor = color;
+  activeColorPreview.style.boxShadow = `0 0 0 2px ${color}, 0 0 18px ${color}`;
+  activeColorText.textContent = colorName;
+
+  // Remove selected border from all preset color buttons
+  colorButtons.forEach(function (button) {
+    button.classList.remove("selected-color");
+  });
+}
+
+
+/* 
+  ============================
+  CLEAR GRID
+  ============================
+
+  This removes the drawing without changing the grid size.
+*/
+
+function clearGrid() {
+  const squares = document.querySelectorAll(".grid-square");
+
+  squares.forEach(function (square) {
+    square.style.backgroundColor = "white";
+  });
+}
+
+
+/* 
+  ============================
+  EVENT LISTENERS
+  ============================
+
+  Event listeners make the app respond to user actions.
+*/
+
+
+/*
+  Stop drawing when the user releases the mouse button anywhere on the page.
+  This is better than listening only on the squares.
+*/
+document.addEventListener("mouseup", function () {
+  isDrawing = false;
+});
+
+
+/*
+  Prevents accidental dragging behavior while drawing.
+  This makes the drawing interaction feel cleaner.
+*/
+gridContainer.addEventListener("dragstart", function (event) {
+  event.preventDefault();
+});
+
+
+/*
+  Update the visible grid size text while the user moves the slider.
+  This does not rebuild the grid yet.
+*/
+gridSizeSlider.addEventListener("input", function () {
+  const sliderValue = Number(gridSizeSlider.value);
+  gridSizeText.textContent = `${sliderValue}x${sliderValue}`;
+});
+
+
+/*
+  Rebuild the grid only when the user clicks Change Size.
+  This prevents the app from constantly rebuilding the grid while sliding.
+*/
+changeSizeButton.addEventListener("click", function () {
+  const newSize = Number(gridSizeSlider.value);
+  createGrid(newSize);
+});
+
+
+drawButton.addEventListener("click", function () {
+  setTool("draw");
+});
+
+
+eraserButton.addEventListener("click", function () {
+  setTool("erase");
+});
+
+
+rainbowButton.addEventListener("click", function () {
+  setTool("rainbow");
+});
+
+
+clearButton.addEventListener("click", function () {
+  clearGrid();
+});
+
+
+/*
+  Each preset color button stores its color in data-color
+  and its readable name in data-name.
+*/
+colorButtons.forEach(function (button) {
+  button.addEventListener("click", function () {
+    const selectedColor = button.dataset.color;
+    const selectedColorName = button.dataset.name;
+
+    setColor(selectedColor, selectedColorName);
+
+    // Add selected styling to the clicked button
+    button.classList.add("selected-color");
+  });
+});
+
+
+/*
+  The custom color picker gives the user access to the full color spectrum.
+*/
+customColorPicker.addEventListener("input", function () {
+  const selectedColor = customColorPicker.value;
+
+  setColor(selectedColor, "Custom Color");
+});
+
+
+/*
+  Turns the visible grid lines on or off.
+*/
+gridLinesToggle.addEventListener("change", function () {
+  if (gridLinesToggle.checked) {
+    gridContainer.classList.remove("grid-lines-off");
   } else {
-    alert("Please enter a number between 1 and 100.");
+    gridContainer.classList.add("grid-lines-off");
   }
 });
 
-// Create the default 16x16 grid when the page first loads
-createGrid(16);
+
+/* 
+  ============================
+  KEYBOARD SHORTCUTS
+  ============================
+
+  These are optional but make the app feel more polished.
+*/
+
+document.addEventListener("keydown", function (event) {
+  const key = event.key.toLowerCase();
+
+  if (key === "d") {
+    setTool("draw");
+  }
+
+  if (key === "e") {
+    setTool("erase");
+  }
+
+  if (key === "r") {
+    setTool("rainbow");
+  }
+
+  /*
+    Ctrl+C usually means copy.
+    Here we use it to clear the drawing, matching the mockup hint.
+    preventDefault stops the browser's normal copy behavior.
+  */
+  if (event.ctrlKey && key === "c") {
+    event.preventDefault();
+    clearGrid();
+  }
+});
+
+
+/* 
+  ============================
+  INITIAL APP LOAD
+  ============================
+
+  These lines set up the app when the page first opens.
+*/
+
+createGrid(currentGridSize);
+setTool("draw");
+setColor(currentColor, currentColorName);

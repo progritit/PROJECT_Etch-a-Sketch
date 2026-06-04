@@ -1,61 +1,370 @@
 /* 
-  Makes width and height include padding and borders.
-  This prevents borders from accidentally making elements larger than expected.
+  Global reset.
+  box-sizing: border-box keeps borders and padding inside the declared width/height.
+  This helps prevent grid overflow problems.
 */
 * {
     box-sizing: border-box;
 }
 
-/* Basic page styling */
 body {
-    font-family: Arial, sans-serif;
-    text-align: center;
     margin: 0;
-    padding: 20px;
-    background-color: #f5f5f5;
-}
+    min-height: 100vh;
 
-h1 {
-    margin-bottom: 10px;
-}
+    font-family: Arial, Helvetica, sans-serif;
+    color: #13211a;
+    background-image: url("images/background.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 
-/* Styles the grid resize button */
-button {
-    padding: 10px 16px;
-    margin-bottom: 20px;
-    font-size: 16px;
-    cursor: pointer;
+    /*
+    Centers the whole application.
+  */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* 
-  The main grid area.
-  Flexbox is used here to arrange the square divs into rows.
+  Main application layout.
+  Flexbox places the control panel and canvas side by side.
 */
-#container {
-    width: 960px;
-    height: 960px;
-    margin: 0 auto;
+.app {
+    width: min(92vw, 1200px);
+    min-height: 720px;
+
+    display: flex;
+    gap: 32px;
+    align-items: stretch;
+}
+
+/* 
+  Shared panel style for the controls and canvas.
+  This creates the soft white cards from the mockup.
+*/
+.control-panel,
+.canvas-panel {
+    background-color: rgba(255, 255, 250, 0.94);
+    border-radius: 24px;
+    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.22);
+}
+
+/* Left controls card */
+.control-panel {
+    width: 390px;
+    padding: 28px 24px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+/* App title area */
+.app-header {
+    text-align: center;
+}
+
+.app-header h1 {
+    margin: 0;
+    font-size: 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.app-header h1 span {
+    color: #b56a2b;
+}
+
+.app-header p {
+    margin: 4px 0 0;
+    font-size: 16px;
+    color: #3d4a41;
+}
+
+/* Active tool and active color area */
+.status-area {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.status-item h2,
+.controls-section h2 {
+    margin: 0 0 10px;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+.tool-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 6px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 34px;
+    background-color: #fff7e6;
+    border: 3px solid #b56a2b;
+    border-radius: 50%;
+}
+
+.active-color-preview {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 6px;
+
+    background-color: #2E7D4F;
+    border: 4px solid white;
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px #2E7D4F, 0 0 18px rgba(46, 125, 79, 0.6);
+}
+
+.status-item p {
+    margin: 0;
+    font-size: 14px;
+}
+
+/* Groups related controls */
+.controls-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Grid size label row */
+.slider-row,
+.toggle-row,
+.custom-color-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Slider base style */
+input[type="range"] {
+    width: 100%;
+    accent-color: #2E7D4F;
+    cursor: pointer;
+}
+
+/* Button base style */
+.button {
+    border: none;
+    border-radius: 10px;
+    padding: 12px 16px;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    background-color: #f6f1df;
+    color: #142018;
+
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.16);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+/* Simple hover feedback */
+.button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 14px rgba(0, 0, 0, 0.2);
+}
+
+.button-row {
+    display: flex;
+    gap: 10px;
+}
+
+.tool-button {
+    flex: 1;
+}
+
+/* Active tool button */
+.active-button {
+    background-color: #2E7D4F;
+    color: white;
+}
+
+/* Change size button */
+.secondary-button {
+    align-self: flex-end;
+}
+
+/* Rainbow button with a soft rainbow gradient */
+.rainbow-button {
+    width: 100%;
+    color: white;
+    text-transform: uppercase;
+    background: linear-gradient(90deg,
+            #ff5f57,
+            #f2a154,
+            #e9c46a,
+            #65b96f,
+            #70a1b7);
+}
+
+/* Grid line toggle */
+.switch {
+    position: relative;
+    width: 48px;
+    height: 26px;
+}
+
+.switch input {
+    display: none;
+}
+
+.switch-slider {
+    position: absolute;
+    inset: 0;
+
+    background-color: #c8c8b8;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.switch-slider::before {
+    content: "";
+    position: absolute;
+
+    width: 20px;
+    height: 20px;
+    left: 3px;
+    top: 3px;
+
+    background-color: white;
+    border-radius: 50%;
+
+    transition: transform 0.2s ease;
+}
+
+.switch input:checked+.switch-slider {
+    background-color: #2E7D4F;
+}
+
+.switch input:checked+.switch-slider::before {
+    transform: translateX(22px);
+}
+
+/* Preset color buttons */
+.palette {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.color-button {
+    width: 48px;
+    height: 48px;
+
+    border: 2px solid transparent;
+    border-radius: 10px;
+
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.18);
+}
+
+.color-button:hover {
+    transform: translateY(-2px);
+}
+
+.selected-color {
+    border: 3px solid #13211a;
+}
+
+/* Custom color picker */
+.custom-color-row label {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+#customColorPicker {
+    width: 58px;
+    height: 48px;
+    padding: 4px;
+
+    border: 2px solid #2E7D4F;
+    border-radius: 10px;
+
+    cursor: pointer;
+}
+
+/* Shortcut hints */
+.shortcut-hints {
+    margin-top: auto;
+    font-size: 14px;
+    color: #fff;
+    text-shadow: 0 1px 3px black;
+}
+
+/* Right canvas card */
+.canvas-panel {
+    flex: 1;
+    padding: 24px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 
+  The drawing grid container.
+  JavaScript will insert the pixel squares here.
+*/
+.grid-container {
+    width: min(70vh, 560px);
+    height: min(70vh, 560px);
 
     display: flex;
     flex-wrap: wrap;
 
-    background-color: white;
-    border: 2px solid black;
+    background-color: #fffef7;
+    border: 2px solid #b8b7a2;
+    border-radius: 14px;
+
+    overflow: hidden;
 }
 
 /* 
-  Each square in the grid.
-  Width and height are set dynamically in JavaScript.
+  Individual grid squares.
+  JavaScript controls their width and height.
 */
 .grid-square {
-    border: 1px solid #ddd;
     background-color: white;
+    border: 1px solid #d4d1bd;
 }
 
-/* 
-  This class is added when the mouse passes over a square.
-  It creates the drawing effect.
-*/
-.colored {
-    background-color: black;
+/* Used when grid lines are turned off */
+.grid-lines-off .grid-square {
+    border: none;
+}
+
+/* Responsive layout for smaller screens */
+@media (max-width: 950px) {
+    body {
+        align-items: flex-start;
+        padding: 24px 0;
+    }
+
+    .app {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .control-panel {
+        width: min(92vw, 500px);
+    }
+
+    .canvas-panel {
+        width: min(92vw, 640px);
+    }
+
+    .grid-container {
+        width: min(84vw, 560px);
+        height: min(84vw, 560px);
+    }
 }
