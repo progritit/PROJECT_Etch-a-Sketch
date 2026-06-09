@@ -55,6 +55,7 @@ let currentTool = "draw";
 
   false = user is not holding the mouse button
   true = user is holding the mouse button
+  changed mouse  to pointer to support touchscreens and tablets as well
 */
 let isDrawing = false;
 
@@ -90,14 +91,14 @@ function createGrid(size) {
 
     square.classList.add("grid-square");
 
-    square.addEventListener("mousedown", function (event) {
+    square.addEventListener("pointerdown", function (event) {
       if (event.button === 0) {
         isDrawing = true;
         colorSquare(square);
       }
     });
 
-    square.addEventListener("mouseenter", function () {
+    square.addEventListener("pointerenter", function () {
       if (isDrawing) {
         colorSquare(square);
       }
@@ -244,8 +245,9 @@ function clearGrid() {
 /*
   Stop drawing when the user releases the mouse button anywhere on the page.
   This is better than listening only on the squares.
+  Changed mouseup to pointerup to support touchscreens and tablets as well.
 */
-document.addEventListener("mouseup", function () {
+document.addEventListener("pointerup", function () {
   isDrawing = false;
 });
 

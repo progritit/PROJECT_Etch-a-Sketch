@@ -35,31 +35,7 @@ body {
       Full-page animated video background.
       The video sits behind the app interface.
     */
-        .background-video {
-            position: fixed;
-            top: 0;
-            left: 0;
-    
-            width: 100vw;
-            height: 100vh;
-    
-            object-fit: cover;
-    
-            z-index: -2;
-        }
-    
-        /*
-      Soft overlay above the video.
-      This improves readability by calming the animated background.
-    */
-        .background-overlay {
-            position: fixed;
-            inset: 0;
-    
-            background: rgba(19, 33, 26, 0.18);
-    
-            z-index: -1;
-        }
+        
 
     display: flex;
     justify-content: center;
@@ -75,6 +51,32 @@ body {
     Adds space so the footer does not visually collide with the app.
   */
     padding-bottom: 80px;
+}
+
+.background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    object-fit: cover;
+
+    z-index: -2;
+}
+
+/*
+      Soft overlay above the video.
+      This improves readability by calming the animated background.
+    */
+.background-overlay {
+    position: fixed;
+    inset: 0;
+
+    background: rgba(19, 33, 26, 0.18);
+
+    z-index: -1;
 }
 
 /* 
@@ -309,6 +311,7 @@ input[type="range"] {
     display: flex;
     justify-content: space-between;
     gap: 10px;
+    flex-wrap: wrap;
 }
 
 .color-button {
@@ -421,6 +424,7 @@ input[type="range"] {
     .app {
         flex-direction: column;
         align-items: center;
+        min-height: auto;
     }
 
     .control-panel {
@@ -434,6 +438,32 @@ input[type="range"] {
     .grid-container {
         width: min(84vw, 560px);
         height: min(84vw, 560px);
+    }
+}
+
+@media (max-width: 600px) {
+    .footer-pill {
+        min-width: auto;
+        width: 92vw;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 12px 16px;
+    }
+
+    .footer-pill p {
+        font-size: 12px;
+        text-align: center;
+        white-space: normal;
+    }
+}
+
+@media (max-width: 480px) {
+    .button-row {
+        flex-direction: column;
+    }
+
+    .secondary-button {
+        align-self: stretch;
     }
 }
 
