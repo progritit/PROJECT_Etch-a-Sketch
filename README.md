@@ -1,13 +1,12 @@
-# Etch-a-Sketch Project
-https://progritit.github.io/PROJECT_Etch-a-Sketch/
+# Etch-a-Sketch Studio
 
-<img width="1919" height="933" alt="Screenshot_2026-06-04_23-23-45" src="https://github.com/user-attachments/assets/bc009ae0-79a9-40d1-bd25-66f42f24e0ba" />
+[Live Demo](https://progritit.github.io/PROJECT_Etch-a-Sketch/)
 
-# ETCH-A-SKETCH STUDIO
+<img width="1919" height="933" alt="Etch-a-Sketch Studio preview" src="https://github.com/user-attachments/assets/bc009ae0-79a9-40d1-bd25-66f42f24e0ba" />
 
-A solarpunk-themed Etch-a-Sketch / pixel drawing application built with HTML, CSS, and JavaScript.
+A browser-based Etch-a-Sketch / pixel drawing application built with HTML, CSS, and JavaScript.
 
-This project was developed as part of The Odin Project Foundations curriculum and expanded into a visually polished browser drawing app focused on DOM manipulation, event handling, Flexbox layout, dynamic grid creation, and beginner-friendly JavaScript logic.
+This project was developed as part of **The Odin Project Foundations** curriculum and expanded into a polished browser drawing app focused on DOM manipulation, event handling, dynamic grid creation, Flexbox layout, interactive controls, and beginner-friendly JavaScript logic.
 
 ---
 
@@ -16,7 +15,7 @@ This project was developed as part of The Odin Project Foundations curriculum an
 The application showcases:
 
 * A modern Etch-a-Sketch inspired drawing interface
-* A solarpunk visual theme
+* A bright eco-futuristic visual direction
 * Dynamically generated grid squares using JavaScript
 * Click-and-hold drawing behavior
 * Preset color selection
@@ -42,9 +41,9 @@ The application showcases:
 * CSS variables
 * DOM manipulation
 * Event listeners
-* VS Code
+* Video background integration
 * Git and GitHub
-* AI-generated visual assets
+* GitHub Pages
 
 ---
 
@@ -53,7 +52,7 @@ The application showcases:
 ### Layout & UI
 
 * Semantic HTML structure
-* Solarpunk-inspired application interface
+* Application-style drawing interface
 * Left-side control panel
 * Main drawing canvas panel
 * Styled buttons and interactive controls
@@ -65,7 +64,7 @@ The application showcases:
 
 ### Drawing Logic
 
-* Grid squares are created dynamically with JavaScript
+* Grid squares created dynamically with JavaScript
 * Default 16x16 grid on page load
 * User-selected grid sizes through a slider
 * Click-and-hold drawing instead of automatic hover drawing
@@ -76,26 +75,26 @@ The application showcases:
 
 ### Color Controls
 
-* Reduced preset color palette for quick drawing
-* Custom color picker for broad color selection
+* Preset color palette for quick drawing
+* Custom color picker for broader color selection
 * Active color preview updates dynamically
 * Selecting a color automatically returns the user to draw mode
 
 ### Design
 
-* Solarpunk visual direction
+* Bright eco-futuristic visual identity
 * Warm greens, golds, creams, and natural tones
 * Animated background with slow environmental movement
 * Soft shadows, rounded panels, and glowing accents
 * Interface designed to remain readable over a detailed background
-* Visual style inspired by eco-futuristic creative studio environments
+* Visual style inspired by creative studio environments and optimistic future design
 
 ---
 
 ## Project Structure
 
-```
-PROJECT_Etch_A_Sketch/
+```plaintext
+PROJECT_Etch-a-Sketch/
 │
 ├── index.html
 ├── style.css
@@ -111,9 +110,9 @@ PROJECT_Etch_A_Sketch/
 
 ## Design Concept
 
-This version of the project was redesigned as a fictional solarpunk drawing app named Solar Sketch Studio.
+This version of the project was redesigned as a fictional drawing application named **Etch-a-Sketch Studio**.
 
-The objective was to create a simple browser-based sketch pad while making the interface feel more polished and portfolio-ready. The visual direction combines a creative drawing workspace with an optimistic eco-futuristic atmosphere.
+The objective was to transform a foundational DOM manipulation exercise into a more polished portfolio project: a simple browser-based sketch pad with a more immersive interface, interactive controls, and a distinctive visual identity.
 
 The design is inspired by:
 
@@ -144,7 +143,7 @@ This project helped reinforce:
 * Preventing unwanted browser drag behavior while drawing
 * Organizing project assets with relative paths
 * Using video as a background element
-* Writing cleaner comments to explain code purpose
+* Writing clearer comments to explain code purpose
 * Thinking about debugging and test-driven development
 
 ---
@@ -186,7 +185,6 @@ Some grid sizes caused unexpected visual behavior where the grid did not appear 
 * Investigated Flexbox wrapping behavior
 * Confirmed that `flex-wrap: wrap` is necessary for the grid layout
 * Checked how square sizes are calculated
-* Considered safer sizing using the grid container’s available dimensions
 * Used browser developer tools and console logging to inspect layout behavior
 
 ---
@@ -212,57 +210,23 @@ The footer needed to show the current year automatically.
 ### Solution
 
 * Added a footer with a dedicated year span
-
 * Used JavaScript to get the current year:
 
-  new Date().getFullYear();
+```js
+new Date().getFullYear();
+```
 
 * Updated the footer dynamically when the page loads
 
 ---
 
-## AI-Assisted Workflow
+## Development Workflow
 
-This project was developed using a modern AI-assisted workflow.
+This project was built through a hands-on learning process using HTML, CSS, and JavaScript.
 
-### Tools Used
+AI tools were used as learning and productivity assistants for brainstorming, visual direction, debugging support, and documentation refinement. The final code was reviewed, adapted, tested, and integrated manually, with a focus on understanding the JavaScript logic, DOM interactions, grid behavior, layout structure, and design decisions behind the implementation.
 
-#### ChatGPT
-
-Assisted with:
-
-* Project structure planning
-* HTML, CSS, and JavaScript implementation
-* Feature-by-feature development
-* Code comments and explanations
-* Debugging layout and grid behavior
-* Git commit message planning
-* README drafting
-* Portfolio presentation refinement
-
-#### Google Gemini
-
-Assisted with:
-
-* Solarpunk interface mockup generation
-* Background image generation
-* Animated background video generation
-* Visual direction exploration
-
-#### VS Code
-
-Used for:
-
-* Writing and editing project files
-* Organizing HTML, CSS, JavaScript, and media assets
-* Testing changes locally
-* Managing the project workflow
-
-### Development Approach
-
-AI tools were used as collaborative assistants throughout the project, while implementation decisions, debugging, code integration, testing, and final design choices were handled manually.
-
-This workflow reflects a modern learning process where AI helps accelerate ideation and problem-solving, while the developer remains responsible for understanding, adapting, and applying the code.
+This workflow reflects a modern approach to learning web development: using available tools strategically while staying responsible for the final result.
 
 ---
 
@@ -279,41 +243,40 @@ Potential future enhancements:
 * Add accessibility improvements
 * Optimize background video size
 * Add a custom favicon
-* Deploy with GitHub Pages
 
 ---
 
 ## Author
 
-Clebson Costa
+**Clebson Costa**
 
 Full Stack Web Development student.
 
 Current areas of study and practice:
 
-- HTML
-- CSS
-- JavaScript fundamentals
-- DOM manipulation
-- Responsive layouts
-- Git and GitHub
-- Clean UI implementation
-- Portfolio-quality projects
+* HTML
+* CSS
+* JavaScript fundamentals
+* DOM manipulation
+* Responsive layouts
+* Git and GitHub
+* Clean UI implementation
+* Portfolio-quality projects
 
 Long-term learning path:
 
-- Frontend development
-- Backend development
-- Databases
-- Full stack application architecture
+* Frontend development
+* Backend development
+* Databases
+* Full stack application architecture
 
 ---
 
 ## Acknowledgements
 
 * The Odin Project
-* ChatGPT for development support and debugging assistance
-* Google Gemini for solarpunk visual generation and creative inspiration
+* ChatGPT for learning support, debugging assistance, and documentation refinement
+* Google Gemini for visual direction exploration
 * The open web development community
 
 ---
